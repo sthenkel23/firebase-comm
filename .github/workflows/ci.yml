@@ -1,0 +1,56 @@
+name: Test, Docker Image CI & Deploy To Cloud
+
+on:
+  push:
+    branches: [ "dev", "main" ]
+  pull_request:
+    branches: [ "dev", "main" ]
+
+env: 
+  HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }} 
+  HEROKU_BACKEND_NAME: ${{ secrets.HEROKU_BACKEND_NAME }}
+  HEROKU_FRONTEND_NAME: ${{ secrets.HEROKU_FRONTEND_NAME }} 
+  HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+  LIB_NAME: ${{ secrets.LIB_NAME }}
+  VERSION: latest
+  
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.8", "3.9", "3.10"]
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        make install
+    - name: Format the code with black
+      run: |
+        make format
+    - name: Analysing the code with pylint
+      run: |
+        make lint
+    - name: Testing python with pytest
+      run: |
+        make testing
+  
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the pypi python image
+      run: make build-pypi
+    - name: Set environment var needed for Docker
+      env: 
+         FIREBASE_API_KEY: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+      run: | 
+          echo "DO COOL STUFF !!!"
+          python main.py
