@@ -54,4 +54,5 @@ jobs:
          FIREBASE_API_KEY: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
       run: | 
           echo "DO COOL STUFF !!!"
+          pip install firebase_comm-0.0.1-py3-none-any.whl
           python src/main.py
