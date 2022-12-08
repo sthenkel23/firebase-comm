@@ -1,14 +1,15 @@
 import json
 import base64
 import os
-from dotenv import load_dotenv, find_dotenv
 
-# get the value of `SERVICE_ACCOUNT_KEY`environment variable
-load_dotenv(find_dotenv())
+# from dotenv import load_dotenv, find_dotenv
+
+# get the value of `FIREBASE_API_KEY`environment variable
+# load_dotenv(find_dotenv())
 encoded_key = os.getenv("FIREBASE_API_KEY")
 
 # decode
-SERVICE_ACCOUNT_JSON = json.loads(base64.b64decode(encoded_key).decode('utf-8'))
+SERVICE_ACCOUNT_JSON = json.loads(base64.b64decode(encoded_key).decode("utf-8"))
 
 
 from google.cloud import firestore

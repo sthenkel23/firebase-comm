@@ -1,4 +1,4 @@
-dotenv
+#dotenv
 
 
 # Required for db and data massaging
