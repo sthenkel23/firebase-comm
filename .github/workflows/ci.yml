@@ -54,4 +54,4 @@ jobs:
          FIREBASE_API_KEY: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
       run: | 
           echo "DO COOL STUFF !!!"
-          python main.py
+          python src/main.py
