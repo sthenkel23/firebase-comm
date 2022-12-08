@@ -33,9 +33,10 @@ deactivate-virtual:
 	deactivate
 
 build-pypi:
-	pip install --upgrade pip
 	pip install build
 	python3 -m build src
-	
+
+build-package: install build-pypi
+
 run-app:
 	streamlit run src/app.py

@@ -47,7 +47,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the pypi python image
-      run: make build-pypi
+      run: make build-package
   
     - name: Set environment var needed for Docker
       env: 
