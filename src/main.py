@@ -1,6 +1,7 @@
 import json
 import base64
 import os
+import datetime
 from google.cloud import firestore
 
 encoded_key = os.getenv("FIREBASE_API_KEY")
@@ -15,3 +16,12 @@ doc_ref = collection.document("alerts")
 
 # Then get the data at that reference.
 doc = doc_ref.get()
+
+doc_ref.set({
+    'first': 'Peter',
+    'last': 'Pan',
+    'born': 1815,
+    'timestamp': datetime.datetime.now()
+    
+    
+})
